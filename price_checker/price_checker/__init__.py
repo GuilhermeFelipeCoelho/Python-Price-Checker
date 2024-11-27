@@ -20,7 +20,8 @@ def extrair_dados_magalu(url):
 
         preco_elemento = soup.find('p', {'data-testid': 'price-value'}) 
         nome_elemento = soup.find('h1', {'data-testid': 'heading-product-title'})
-        preco = preco_elemento.get_text(strip=True) if preco_elemento else "Preço indisponível"
+        preco1 = preco_elemento.get_text(strip=True) if preco_elemento else "Preço indisponível"
+        preco = preco1.replace("\xa0", " ") if preco1 != "Preço indisponível" else preco1
         nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
         data, hora = extrair_data()
 
@@ -34,7 +35,7 @@ def extrair_dados_magalu(url):
         return {'erro': str(e)}
 
 # url = "https://www.magazineluiza.com.br/kit-composto-lacteo-milnutri-profutura-original-800g-2-unidades/p/229864500/me/cptl/"
-# url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
-url = ""
+url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
+
 dados = extrair_dados_magalu(url)
 print(dados)
