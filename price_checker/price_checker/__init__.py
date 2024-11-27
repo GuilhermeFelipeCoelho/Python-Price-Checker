@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+import sqlite3
 
 def extrair_data():
     data = datetime.now().strftime('%d-%m-%Y')
@@ -26,13 +27,14 @@ def extrair_dados_magalu(url):
         return {
             'nome': nome_produto,
             'preco': preco,
-            'data': data, 
+            'data': data,
             'hora': hora
         }
     except Exception as e:
         return {'erro': str(e)}
 
 # url = "https://www.magazineluiza.com.br/kit-composto-lacteo-milnutri-profutura-original-800g-2-unidades/p/229864500/me/cptl/"
-url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
+# url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
+url = ""
 dados = extrair_dados_magalu(url)
 print(dados)
