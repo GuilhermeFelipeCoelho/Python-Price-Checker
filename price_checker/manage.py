@@ -18,5 +18,11 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+    if len(sys.argv) > 1 and sys.argv[1] == "gui":
+        from gui.gui_app import iniciar_gui
+        iniciar_gui()
+    else:
+        execute_from_command_line(sys.argv)
+
 if __name__ == '__main__':
     main()

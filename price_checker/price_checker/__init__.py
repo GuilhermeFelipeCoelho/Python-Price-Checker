@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import sqlite3
+import pandas as pd
 
 def extrair_data():
     data = datetime.now().strftime('%d-%m-%Y')
