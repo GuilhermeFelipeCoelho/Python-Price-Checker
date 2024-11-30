@@ -1,9 +1,12 @@
+from tkinter.filedialog import askopenfilename
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import tkinter as tk
 import sqlite3
 import pandas as pd
+from openpyxl import load_workbook
+import openpyxl as xl
 
 class PriceChecker:
 
@@ -15,20 +18,17 @@ class PriceChecker:
         self.setup_gui()
 
     def setup_gui(self):
-        # Label principal
         label_titulo = tk.Label(self.root, text="Analisador de Preços", font=("Arial", 16, "bold"))
         label_titulo.pack(pady=10)
 
         self.selecionar_arquivo = tk.Button(self.root, text='Selecionar', )
-        Tk().withdraw() # Isto torna oculto a janela principal
-        filename = askopenfilename() # Isto te permite selecionar um arquivo
-        print(filename) # printa o arquivo selecionado
+        
+        self.localizar_button = tk.Button(self.root, text = "Selecionar arquivo XLSX", command=self.locale)
+        self.localizar_button.pack(pady=10)
 
-        # Botão para Analisar
         self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
-        self.analisar_button.pack(pady=10)
+        self.analisar_button.pack(pady=5)
 
-        # Label para exibir resultado
         self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
         self.result_label.pack(pady=10)
 
@@ -63,6 +63,12 @@ class PriceChecker:
             }
         except Exception as e:
             return {'erro': str(e)}
+        
+    def locale(self):
+        tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
+        tk.Tk().withdraw()
+        filename = askopenfilename(title="Selecionar Arquivo",filetypes=tipos_arquivos)
+        return filename
 
     # url = "https://www.magazineluiza.com.br/kit-composto-lacteo-milnutri-profutura-original-800g-2-unidades/p/229864500/me/cptl/"
     url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
