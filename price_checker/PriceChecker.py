@@ -97,7 +97,7 @@ class PriceChecker:
             
             
 
-    caminho = r"C:\Users\Guilherme\Downloads\Links Magalu e Qualidoc.xlsx"
+    caminho = r".\test\Links Magalu e Qualidoc.xlsx"
     coluna_desejada = "LINK"
     itens = extrair_url_xlsx(caminho, coluna_desejada)
 
