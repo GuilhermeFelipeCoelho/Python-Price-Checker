@@ -80,12 +80,16 @@ class PriceChecker:
             nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
             data, hora = extrair_data()
 
-            return {
-                'nome': nome_produto,
-                'preco': preco,
-                'data': data,
-                'hora': hora
-            }
+            # return {
+            #     'nome': nome_produto,
+            #     'preco': preco,
+            #     'data': data,
+            #     'hora': hora
+            # }
+
+            resultado = f"Nome: {nome_produto}\nPreço: {preco}\nData: {data} Hora: {hora}"
+            return resultado
+    
         except Exception as e:
             return {'erro': str(e)}
         
