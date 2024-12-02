@@ -96,33 +96,6 @@ class PriceChecker:
     def locale(self):
         tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
         filename = askopenfilename(title="Selecionar Arquivo",filetypes=tipos_arquivos)
-        return filename
-
-    # url = "https://www.magazineluiza.com.br/kit-composto-lacteo-milnutri-profutura-original-800g-2-unidades/p/229864500/me/cptl/"
-    url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
-
-    def extrair_url_xlsx(path, nome_coluna):
-        workbook = load_workbook(filename=path)
-        planilha = workbook.active
-        valores_coluna = []
-
-        for linha in planilha.iter_rows(values_only=True):
-            if not valores_coluna:
-                cabecalhos = list(linha)
-                if nome_coluna not in cabecalhos:
-                    raise ValueError(f"Coluna '{nome_coluna}' não encontrada no arquivo.")
-                indice_coluna = cabecalhos.index(nome_coluna)
-            else:
-                valores_coluna.append(linha[indice_coluna])
-            
-                return valores_coluna[1:] if valores_coluna else []
-            try:
-                print(f"Itens da coluna '{nome_coluna}':")
-                for item in nome_coluna:
-                    print(item)
-            except Exception as e:
-                print(f"Erro: {e}")
-            
             
 
     caminho = r".\test\Links Magalu e Qualidoc.xlsx"
