@@ -3,10 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import tkinter as tk
-import sqlite3
 import pandas as pd
-from openpyxl import load_workbook
-import openpyxl as xl
 
 class PriceChecker:
 
@@ -20,18 +17,20 @@ class PriceChecker:
     def setup_gui(self):
         label_titulo = tk.Label(self.root, text="Analisador de Preços", font=("Arial", 16, "bold"))
         label_titulo.pack(pady=10)
-
-        self.selecionar_arquivo = tk.Button(self.root, text='Selecionar', )
         
         self.localizar_button = tk.Button(self.root, text = "Selecionar arquivo XLSX", command=self.locale)
         self.localizar_button.pack(pady=10)
+
+        self.caminho_arquivo = tk.StringVar()
+        self.label_caminho = tk.Label(self.root, textvariable=self.caminho_arquivo)
+        self.label_caminho.pack()
 
         self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
         self.analisar_button.pack(pady=5)
 
         self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
         self.result_label.pack(pady=10)
-
+        
     def extrair_dados_magalu(url):
 
         def extrair_data():
