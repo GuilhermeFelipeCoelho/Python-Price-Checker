@@ -7,14 +7,23 @@ import pandas as pd
 
 class PriceChecker:
 
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
+        self.root = tk.Tk()
         self.root.title("Análise de Preços")
         self.root.geometry("400x300")
         
-        self.setup_gui()
+        self.setup_gui(self.root)
 
-    def setup_gui(self):
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.mainloop()
+
+    def on_closing(self):
+        # Salvar os dados por aqui (opção)
+        print("Fechando a aplicação...")
+        self.root.destroy()
+
+
+    def setup_gui(self, root):
         label_titulo = tk.Label(self.root, text="Analisador de Preços", font=("Arial", 16, "bold"))
         label_titulo.pack(pady=10)
         
@@ -65,7 +74,6 @@ class PriceChecker:
         
     def locale(self):
         tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
-        tk.Tk().withdraw()
         filename = askopenfilename(title="Selecionar Arquivo",filetypes=tipos_arquivos)
         return filename
 
@@ -104,6 +112,4 @@ class PriceChecker:
     print(dados)
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = PriceChecker(root)
-    root.mainloop()
+    app = PriceChecker()
