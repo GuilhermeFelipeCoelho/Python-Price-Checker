@@ -96,14 +96,20 @@ class PriceChecker:
     def locale(self):
         tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
         filename = askopenfilename(title="Selecionar Arquivo",filetypes=tipos_arquivos)
+        print(filename)    
+        if filename:
+            self.caminho_arquivo.set(filename)
             
 
-    caminho = r".\test\Links Magalu e Qualidoc.xlsx"
-    coluna_desejada = "LINK"
-    itens = extrair_url_xlsx(caminho, coluna_desejada)
+    # TESTES
+    url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
 
     dados = extrair_dados_magalu(url)
     print(dados)
+
+    # caminho = r".\test\Links Magalu e Qualidoc.xlsx"
+    # coluna_desejada = "LINK"
+    # TESTES
 
 if __name__ == "__main__":
     app = PriceChecker()
