@@ -37,6 +37,23 @@ class PriceChecker:
         self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
         self.analisar_button.pack(pady=5)
 
+        self.analisar_ordem = tk.StringVar()
+        self.label_analisar_ordem = tk.Label(self.root, textvariable=self.analisar_ordem)
+        self.label_analisar_ordem.pack()
+
+    #
+
+        # self.analisar_ordem = tk.StringVar()
+        # self.label_analisar_ordem = tk.Label(self.root, textvariable=self.analisar_ordem)
+        # self.label_analisar_ordem.pack()
+
+        # self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
+        # self.analisar_button.pack(pady=5)
+
+    #
+
+        
+
         self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
         self.result_label.pack(pady=10)
         
