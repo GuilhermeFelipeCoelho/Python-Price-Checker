@@ -34,25 +34,14 @@ class PriceChecker:
         self.label_caminho = tk.Label(self.root, textvariable=self.caminho_arquivo)
         self.label_caminho.pack()
 
-        self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
+# arrumar
+        self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.analisar_preco)
         self.analisar_button.pack(pady=5)
 
         self.analisar_ordem = tk.StringVar()
         self.label_analisar_ordem = tk.Label(self.root, textvariable=self.analisar_ordem)
         self.label_analisar_ordem.pack()
-
-    #
-
-        # self.analisar_ordem = tk.StringVar()
-        # self.label_analisar_ordem = tk.Label(self.root, textvariable=self.analisar_ordem)
-        # self.label_analisar_ordem.pack()
-
-        # self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
-        # self.analisar_button.pack(pady=5)
-
-    #
-
-        
+# arrumar
 
         self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
         self.result_label.pack(pady=10)
@@ -99,6 +88,17 @@ class PriceChecker:
         print(filename)    
         if filename:
             self.caminho_arquivo.set(filename)
+
+    def analisar_preco(self):
+        # Obter o URL do produto (por enquanto, vamos usar o URL fixo)
+        url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
+
+        # Extrair os dados
+        resultado = self.extrair_dados_magalu(url)
+
+        # Atualizar o rótulo com o resultado
+        self.analisar_ordem.set(resultado)
+
             
 
     # TESTES
