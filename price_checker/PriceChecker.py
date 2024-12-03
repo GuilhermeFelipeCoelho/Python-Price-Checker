@@ -38,16 +38,11 @@ class PriceChecker:
         self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.analisar_preco)
         self.analisar_button.pack(pady=5)
 
-        self.analisar_ordem = tk.StringVar()
-        self.label_analisar_ordem = tk.Label(self.root, textvariable=self.analisar_ordem)
-        self.label_analisar_ordem.pack()
-# arrumar
-
-        self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
+        self.result_label = tk.Label(self.root, text="", font=("Arial", 12), justify="left", wraplength=380)
         self.result_label.pack(pady=10)
+# arrumar
         
-    def extrair_dados_magalu(url):
-
+    def extrair_dados_magalu(self, url):
         def extrair_data():
             data = datetime.now().strftime('%d-%m-%Y')
             hora = datetime.now().strftime('%H:%M:%S')
@@ -80,7 +75,7 @@ class PriceChecker:
             return resultado
     
         except Exception as e:
-            return {'erro': str(e)}
+            return {"Erro ao extrair dados:": str(e)}
         
     def locale(self):
         tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
@@ -95,17 +90,15 @@ class PriceChecker:
 
         # Extrair os dados
         resultado = self.extrair_dados_magalu(url)
+        print(resultado)
 
         # Atualizar o rótulo com o resultado
-        self.analisar_ordem.set(resultado)
+        self.result_label.config(text=resultado)
 
             
 
     # TESTES
     url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
-
-    dados = extrair_dados_magalu(url)
-    print(dados)
 
     # caminho = r".\test\Links Magalu e Qualidoc.xlsx"
     # coluna_desejada = "LINK"
