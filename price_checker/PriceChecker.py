@@ -43,10 +43,6 @@ class PriceChecker:
 # arrumar
         
     def extrair_dados_magalu(self, url):
-        def extrair_data():
-            data = datetime.now().strftime('%d-%m-%Y')
-            hora = datetime.now().strftime('%H:%M:%S')
-            return data, hora
 
         try:
             headers = {
@@ -95,14 +91,11 @@ class PriceChecker:
         # Atualizar o rótulo com o resultado
         self.result_label.config(text=resultado)
 
-            
+def extrair_data():
+            data = datetime.now().strftime('%d-%m-%Y')
+            hora = datetime.now().strftime('%H:%M:%S')
+            return data, hora
 
-    # TESTES
-    url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
-
-    # caminho = r".\test\Links Magalu e Qualidoc.xlsx"
-    # coluna_desejada = "LINK"
-    # TESTES
 
 if __name__ == "__main__":
     app = PriceChecker()
