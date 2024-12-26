@@ -4,8 +4,11 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import tkinter as tk
 import pandas as pd
+from db import inicializar_banco
 
 class PriceChecker:
+    
+    inicializar_banco()
 
     def __init__(self):
         self.root = tk.Tk()
