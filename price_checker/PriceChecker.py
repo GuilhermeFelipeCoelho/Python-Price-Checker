@@ -7,7 +7,7 @@ import pandas as pd
 from db import inicializar_banco
 
 class PriceChecker:
-    
+
     inicializar_banco()
 
     def __init__(self):

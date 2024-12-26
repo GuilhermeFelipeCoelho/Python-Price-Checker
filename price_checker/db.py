@@ -1,5 +1,11 @@
 import sqlite3 as db
-from PriceChecker import extrair_data
+import datetime
+# from PriceChecker import extrair_data
+
+def extrair_data():
+            data = datetime.now().strftime('%d-%m-%Y')
+            hora = datetime.now().strftime('%H:%M:%S')
+            return data, hora
 
 def inicializar_banco():
     conexao = db.connect("produtos.db")
@@ -42,5 +48,4 @@ def exibir_produtos(cursor):
 
 if __name__ == "__main__":
     conexao, cursor = inicializar_banco()
-
-conexao.close()
+    conexao.close()
