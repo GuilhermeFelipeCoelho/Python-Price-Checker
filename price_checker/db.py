@@ -1,6 +1,5 @@
 import sqlite3 as db
 import datetime
-# from PriceChecker import extrair_data
 
 def extrair_data():
             data = datetime.now().strftime('%d-%m-%Y')
