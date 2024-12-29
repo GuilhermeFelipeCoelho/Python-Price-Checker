@@ -33,3 +33,4 @@ def extrair_dados_magalu(url):
     
         except Exception as e:
             return {"Erro ao extrair dados:": str(e)}
+url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-chocolate-sem-lactose-zero-acucar-250ml/p/226969600/me/belc/"

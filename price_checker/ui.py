@@ -2,12 +2,13 @@ import tkinter as tk
 from tkinter.filedialog import askopenfilename
 
 class ui_c:
-    def __init__(self):
+    def __init__(self, on_analyze_callback=None):
         self.root = tk.Tk()
         self.root.title("Análise de Preços")
         self.root.geometry("400x300")
         
         self.setup_gui(self.root)
+        self.on_analyze_callback = on_analyze_callback
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         
@@ -43,8 +44,29 @@ class ui_c:
             self.caminho_arquivo.set(filename)
         return filename
     
+    # def analisar_preco(self):
+    #     self.result_label.config(text="Analisando...")  # Atualiza o status na UI
+    #     if self.on_analyze_callback:
+    #         resultado = self.on_analyze_callback()  # Chama o callback
+    #         self.result_label.config(text=resultado)  # Exibe o resultado
+
     def analisar_preco(self):
-        self.result_label.config(text="Concluido!")
+        self.result_label.config(text="Analisando...")  # Atualiza o status na UI
+        if self.on_analyze_callback:
+            resultado = self.on_analyze_callback()  # Chama o callback
+            if isinstance(resultado, dict):
+                # Formata o resultado para exibição
+                resultado_formatado = (
+                    f"Nome: {resultado.get('nome', 'Indisponível')}\n"
+                    f"Preço: {resultado.get('preco', 'Indisponível')}\n"
+                    f"Data: {resultado.get('data', 'Indisponível')}\n"
+                    f"Hora: {resultado.get('hora', 'Indisponível')}"
+                )
+                self.result_label.config(text=resultado_formatado)
+                print(resultado_formatado)
+            else:
+                self.result_label.config(text=f"Erro: {resultado}")
+                print(resultado)
 
     def inicializar_ui(self):
         self.root.mainloop()
