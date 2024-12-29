@@ -12,8 +12,7 @@ class Main:
 
     def request(self):
         try:
-            # url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-chocolate-sem-lactose-zero-acucar-250ml/p/226969600/me/belc/"
-            url = "https://www.magazineluiza.com.br/composto-lacteo-milnutri-original-premium-original-800g/p/226717800/me/cptl/"
+            url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-chocolate-sem-lactose-zero-acucar-250ml/p/226969600/me/belc/"
             resultado = extrair_dados_magalu(url)
             print(resultado)
         except Exception as e:

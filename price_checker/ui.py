@@ -43,19 +43,12 @@ class ui_c:
         if filename:
             self.caminho_arquivo.set(filename)
         return filename
-    
-    # def analisar_preco(self):
-    #     self.result_label.config(text="Analisando...")  # Atualiza o status na UI
-    #     if self.on_analyze_callback:
-    #         resultado = self.on_analyze_callback()  # Chama o callback
-    #         self.result_label.config(text=resultado)  # Exibe o resultado
 
     def analisar_preco(self):
-        self.result_label.config(text="Analisando...")  # Atualiza o status na UI
+        self.result_label.config(text="Analisando...")
         if self.on_analyze_callback:
-            resultado = self.on_analyze_callback()  # Chama o callback
+            resultado = self.on_analyze_callback()
             if isinstance(resultado, dict):
-                # Formata o resultado para exibição
                 resultado_formatado = (
                     f"Nome: {resultado.get('nome', 'Indisponível')}\n"
                     f"Preço: {resultado.get('preco', 'Indisponível')}\n"
