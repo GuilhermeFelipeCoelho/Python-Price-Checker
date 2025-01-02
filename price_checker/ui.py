@@ -50,10 +50,11 @@ class ui_c:
             resultado = self.on_analyze_callback()
             if isinstance(resultado, dict):
                 resultado_formatado = (
-                    f"Nome: {resultado.get('nome', 'Indisponível')}\n"
-                    f"Preço: {resultado.get('preco', 'Indisponível')}\n"
-                    f"Data: {resultado.get('data', 'Indisponível')}\n"
-                    f"Hora: {resultado.get('hora', 'Indisponível')}"
+                    # f"Nome: {resultado.get('nome', 'Indisponível')}\n"
+                    # f"Preço: {resultado.get('preco', 'Indisponível')}\n"
+                    # f"Data: {resultado.get('data', 'Indisponível')}\n"
+                    # f"Hora: {resultado.get('hora', 'Indisponível')}"
+                    "Concluido!"
                 )
                 self.result_label.config(text=resultado_formatado)
                 print(resultado_formatado)

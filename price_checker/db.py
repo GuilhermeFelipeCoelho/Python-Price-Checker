@@ -45,6 +45,16 @@ def exibir_produtos(cursor):
     for produto in produtos:
         print(f"Nome: {produto[0]} | Preço: R${produto[1]:.2f} | Variação: R${produto[2]:.2f} | Data e Hora: {produto[3]}")
 
+def adicionar_produto(conexao, cursor, nome, preco):
+    data_hora_atual = datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+    variacao = calcular_variacao(cursor, nome, preco)
+    cursor.execute("""
+        INSERT INTO produtos (nome, preco, variacao, data_hora)
+        VALUES (?, ?, ?, ?)
+    """, (nome, preco, variacao, data_hora_atual))
+    conexao.commit()
+    print(f"Produto '{nome}' adicionado com sucesso!")
+
 if __name__ == "__main__":
     conexao, cursor = inicializar_banco()
     conexao.close()
