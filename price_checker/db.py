@@ -29,16 +29,6 @@ def calcular_variacao(cursor, nome, preco_atual):
         return preco_atual - ultimo_preco
     return 0.0
 
-def adicionar_produto(conexao, cursor, nome, preco):
-    data_hora_atual = extrair_data
-    variacao = calcular_variacao(cursor, nome, preco)
-    cursor.execute("""
-        INSERT INTO produtos (nome, preco, variacao, data_hora)
-        VALUES (?, ?, ?, ?)
-    """, (nome, preco, variacao, data_hora_atual))
-    conexao.commit()
-    print(f"Produto '{nome}' adicionado com sucesso!")
-
 def exibir_produtos(cursor):
     cursor.execute("SELECT nome, preco, variacao, data_hora FROM produtos")
     produtos = cursor.fetchall()
