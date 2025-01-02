@@ -5,12 +5,13 @@ import requests
 def extrair_dados_magalu(url):
         try:
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
             }
             response = requests.get(url, headers=headers)
             response.raise_for_status() 
 
             soup = BeautifulSoup(response.content, 'html.parser')
+            
 
             preco_elemento = soup.find('p', {'data-testid': 'price-value'}) 
             nome_elemento = soup.find('h1', {'data-testid': 'heading-product-title'})
@@ -18,11 +19,6 @@ def extrair_dados_magalu(url):
             preco = preco1.replace("\xa0", " ") if preco1 != "Preço indisponível" else preco1
             nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
             data, hora = extrair_data()
-            
-            def extrair_data():
-                data = datetime.now().strftime('%d-%m-%Y')
-                hora = datetime.now().strftime('%H:%M:%S')
-                return data, hora
 
             return {
                 'nome': nome_produto,
@@ -33,4 +29,8 @@ def extrair_dados_magalu(url):
     
         except Exception as e:
             return {"Erro ao extrair dados:": str(e)}
-url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-chocolate-sem-lactose-zero-acucar-250ml/p/226969600/me/belc/"
+        
+def extrair_data():
+    data = datetime.datetime.now().strftime('%d-%m-%Y')
+    hora = datetime.datetime.now().strftime('%H:%M:%S')
+    return data, hora
