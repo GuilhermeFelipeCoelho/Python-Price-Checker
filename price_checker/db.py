@@ -50,13 +50,6 @@ def adicionar_produto(conexao, cursor, nome, preco):
     conexao.commit()
     print(f"Produto '{nome}' adicionado com sucesso!")
 
-def add_data(data):
-    cursor.execute("""
-        INSERT INTO dias(data)
-        VALUES data
-    """,(data))
-    conexao.commit()
-
 if __name__ == "__main__":
     conexao, cursor = inicializar_banco()
     conexao.close()
