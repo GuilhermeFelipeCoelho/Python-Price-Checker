@@ -13,6 +13,16 @@ def inicializar_banco():
             data_hora TEXT NOT NULL
         )
     """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS preco (
+            id_prec INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_prod INTEGER,
+            preco REAL,
+            varicacao REAL,
+            data TEXT,
+            status INTEGER
+        )
+    """)
     conexao.commit()
     return conexao, cursor
 
