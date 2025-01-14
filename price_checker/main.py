@@ -1,5 +1,5 @@
 import pandas as pd
-from db import adicionar_produto, inicializar_banco, check_data, add_data
+from db import adicionar_produto, inicializar_banco
 from ui import ui_c
 from scraping import extrair_dados_magalu
 
@@ -7,7 +7,7 @@ class Main:
     def __init__(self):
         self.path = None
         self.app = ui_c(self.request)
-        self.conexao, self.cursor = inicializar_banco(), check_data()
+        self.conexao, self.cursor = inicializar_banco()
 
     def request(self):
         try:
@@ -16,7 +16,6 @@ class Main:
                 df = pd.read_excel(self.path)
                 link = df['LINK']
                 resultados = []
-                add_data()
                 for url in link:
                     print(f"Extraindo dados do link: {url}")
                     dados = extrair_dados_magalu(url)

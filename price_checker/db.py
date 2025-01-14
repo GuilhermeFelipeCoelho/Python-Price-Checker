@@ -1,18 +1,6 @@
 import sqlite3 as db
 import datetime
 
-def check_data():
-    conexao = db.connect("produtos.db")
-    cursor = conexao.cursor()
-    data = datetime.datetime.now().strftime('%d-%m-%Y')
-    cursor.execute("""          
-        CREATE TABLE IF NOT EXISTS dias(
-        data TEXT NOT NULL
-        )
-    """)
-    conexao.commit()
-    print(data)
-
 def inicializar_banco():
     conexao = db.connect("produtos.db")
     cursor = conexao.cursor()
