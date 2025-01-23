@@ -21,6 +21,14 @@ def inicializar_banco():
             data_hora_lastcall_nodia TEXT NOT NULL
         )
     """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS dias (
+            id INTEGER PRIMARY KEU AUTOINCREMENT,
+            data_atual TEXT NOT NULL,
+            ultima_checagem TEXT NOT NULL,
+            rodou INTEGER NOT NULL
+        )
+    """)
 
     #                       > BOTANDO ESSE DB PRA FUNCIONAR <
 
