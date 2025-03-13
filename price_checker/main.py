@@ -29,12 +29,18 @@ class Main:
         except Exception as e:
             return {"Erro": str(e)}
 
+    def close_db(self):
+        if self.conexao:
+            self.conexao.close()
+            print("Conexão com o banco de dados fechada.")
+    
     def start(self):
         self.app.inicializar_ui()
+        self.close_db() # Fechar a conexão quando a interface for fechada
 
-def path_get(self):
-    self.path = self.app.locale_path()
-
+    def path_get(self):
+        self.path = self.app.locale_path()
+    
 if __name__ == "__main__":
     main_app = Main()
     main_app.start()

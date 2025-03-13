@@ -15,11 +15,26 @@ def extrair_dados_magalu(url):
 
             preco_elemento = soup.find('p', {'data-testid': 'price-value'}) 
             nome_elemento = soup.find('h1', {'data-testid': 'heading-product-title'})
-            preco1 = preco_elemento.get_text(strip=True) if preco_elemento else "Preço indisponível"
+                
+            if preco_elemento:
+                preco_span = preco_elemento.find('span')
+                if preco_span:
+                    preco1 = preco_span.get_text(strip=True)
+                else:
+                    preco1 = "Preço indisponível"
+            else:
+                preco1 = "Preço indisponível"
+
             preco = preco1.replace("\xa0", " ") if preco1 != "Preço indisponível" else preco1
             nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
             data, hora = extrair_data()
 
+            preco1 = preco_elemento.get_text(strip=True) if preco_elemento else "Preço indisponível"
+            preco = preco1.replace("\xa0", " ") if preco1 != "Preço indisponível" else preco1
+            nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
+            data, hora = extrair_data()
+            print(f"Dados extraídos com sucesso: {preco_elemento}")
+            print(f"Dados extraídos com sucesso: {nome_elemento}")
             return {
                 'nome': nome_produto,
                 'preco': preco,
