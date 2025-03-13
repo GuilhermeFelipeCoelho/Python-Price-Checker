@@ -5,7 +5,8 @@ class ui_c:
     def __init__(self, on_analyze_callback=None):
         self.root = tk.Tk()
         self.root.title("Análise de Preços")
-        self.root.geometry("700x500")
+        self.root.geometry("400x300")
+
         
         self.setup_gui(self.root)
         self.on_analyze_callback = on_analyze_callback
