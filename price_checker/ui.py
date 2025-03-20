@@ -60,12 +60,10 @@ class ui_c:
             # Se for um dicionário, assume-se que é um resultado válido
             resultado_formatado = "Concluído com sucesso!"
             self.result_label.config(text=resultado_formatado)
-            print(resultado_formatado)
         else:
             # Log de erro - Melhor visibilidade e informação útil para debug
             mensagem_erro = f"Erro detectado: {resultado}\nUm log foi gerado. Verifique os registros."
             self.result_label.config(text="Erro: Verifique os logs!")
-            print(mensagem_erro)
 
     def telaLog(self):
         log_window = tk.Toplevel(self.root)

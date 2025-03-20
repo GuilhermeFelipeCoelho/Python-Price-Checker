@@ -42,9 +42,6 @@ def tela_variacao_precos(root, conexao, cursor):
         # Chama a função para calcular a variação de preço
         variacao = calcular_variacao_preco(conexao, cursor, produto_selecionado, data_inicio_str, data_fim_str)
 
-        # Verifique o tipo do retorno
-        print(f"Valor retornado: {variacao}")
-
         # Verifique se o retorno é um número ou um erro
         if isinstance(variacao, str):  # Se for uma mensagem de erro
             resultado_label.config(text=variacao)

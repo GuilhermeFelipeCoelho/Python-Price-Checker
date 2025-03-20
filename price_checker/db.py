@@ -46,22 +46,17 @@ def calcular_variacao(cursor, nome, preco_atual):
         preco_atual = float(str(preco_atual).replace(',', '.'))  # Converte para float
         
         variacao = round(((preco_atual - ultimo_preco) / ultimo_preco) * 100, 2)
-        print(f"Variação calculada: {variacao}%")
         return variacao
-
-    print("Nenhum registro anterior encontrado. Variação: 0.0")
     return 0.0
 
 
 
 def adicionar_produto(conexao, cursor, nome, preco):
-    print(f"Adicionando produto: {nome} | Preço: {preco}")
-    atualizar_data_produto(conexao, cursor, 1, '19-03-2025 10:56:25')
+
     # Obtém a variação de preço antes da inserção
     variacao = calcular_variacao(cursor, nome, preco)
 
     data_hora_atual = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    print(f"Variação a ser salva no BD: {variacao}%")
     cursor.execute(
         """
         INSERT INTO produtos (nome, preco, variacao_preco, data_hora)
@@ -74,7 +69,6 @@ def adicionar_produto(conexao, cursor, nome, preco):
     cursor.execute("SELECT last_insert_rowid()")
     id_ultimo_produto = cursor.fetchone()[0]
     print(f"Produto inserido com ID: {id_ultimo_produto}")
-    print(f"Produto '{nome}' inserido com variação de preço: {variacao}%")
     
 def exibir_produtos(cursor):
     cursor.execute("SELECT nome, preco, variacao, data_hora FROM produtos")
@@ -95,8 +89,6 @@ def calcular_variacao_preco(conexao, cursor, produto, data_inicio, data_fim):
         data_inicio = datetime.datetime.strptime(data_inicio, '%d-%m-%Y').strftime('%d-%m-%Y')
         data_fim = datetime.datetime.strptime(data_fim, '%d-%m-%Y').strftime('%d-%m-%Y')
 
-        print(f"Consultando dados para o produto '{produto}' entre {data_inicio} e {data_fim}")
-
         # Consulta no banco de dados, ignorando o horário
         query = """
             SELECT preco, data_hora FROM produtos
@@ -106,8 +98,6 @@ def calcular_variacao_preco(conexao, cursor, produto, data_inicio, data_fim):
         cursor.execute(query, (produto, data_inicio, data_fim))
         precos = cursor.fetchall()
 
-        # Depuração: exibe os preços encontrados
-        print(f"Preços encontrados: {precos}")
 
         # Verifica se encontrou resultados
         if not precos:
@@ -130,8 +120,6 @@ def calcular_variacao_preco(conexao, cursor, produto, data_inicio, data_fim):
             variacao_formatada = f"Data: {data_inicial} -> {data_final} | Variação: {variacao}%"
             variacoes.append(variacao_formatada)
 
-            # Exibe a variação calculada para depuração
-            print(f"Variação percentual entre {preco_inicial} e {preco_final}: {variacao}%")
 
         # Se houver variações, retorna todas formatadas
         if variacoes:
@@ -142,21 +130,6 @@ def calcular_variacao_preco(conexao, cursor, produto, data_inicio, data_fim):
 
     except Exception as e:
         return {"Erro ao calcular variação de preços": str(e)}
-
-def atualizar_data_produto(conexao, cursor, produto_id, nova_data):
-     #atualizar_data_produto(conexao, cursor, 1, '19-03-2025 10:56:25')
-    try:
-        query = """
-            UPDATE produtos
-            SET data_hora = ?,preco='7,91'
-            WHERE id = ?
-        """
-        cursor.execute(query, (nova_data, produto_id))
-        conexao.commit()
-        print("Data e preço atualizados com sucesso.")
-    except Exception as e:
-        print(f"Erro ao atualizar a data e o preço: {str(e)}")
-
 
 def Gerarlog(conexao, cursor, e):
     try:
