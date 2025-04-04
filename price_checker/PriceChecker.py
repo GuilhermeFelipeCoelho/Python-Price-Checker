@@ -3,37 +3,46 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import tkinter as tk
-import sqlite3
 import pandas as pd
-from openpyxl import load_workbook
-import openpyxl as xl
 
 class PriceChecker:
 
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
+        self.root = tk.Tk()
         self.root.title("Análise de Preços")
         self.root.geometry("400x300")
         
-        self.setup_gui()
+        self.setup_gui(self.root)
 
-    def setup_gui(self):
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.mainloop()
+
+    def on_closing(self):
+        # Salvar os dados por aqui (opção)
+        print("Fechando a aplicação...")
+        self.root.destroy()
+
+
+    def setup_gui(self, root):
         label_titulo = tk.Label(self.root, text="Analisador de Preços", font=("Arial", 16, "bold"))
         label_titulo.pack(pady=10)
-
-        self.selecionar_arquivo = tk.Button(self.root, text='Selecionar', )
         
         self.localizar_button = tk.Button(self.root, text = "Selecionar arquivo XLSX", command=self.locale)
         self.localizar_button.pack(pady=10)
 
-        self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.extrair_dados_magalu)
+        self.caminho_arquivo = tk.StringVar()
+        self.label_caminho = tk.Label(self.root, textvariable=self.caminho_arquivo)
+        self.label_caminho.pack()
+
+# arrumar
+        self.analisar_button = tk.Button(self.root, text="Analisar Preço", command=self.analisar_preco)
         self.analisar_button.pack(pady=5)
 
-        self.result_label = tk.Label(self.root, text="", font=("Arial", 12))
+        self.result_label = tk.Label(self.root, text="", font=("Arial", 12), justify="left", wraplength=380)
         self.result_label.pack(pady=10)
-
-    def extrair_dados_magalu(url):
-
+# arrumar
+        
+    def extrair_dados_magalu(self, url):
         def extrair_data():
             data = datetime.now().strftime('%d-%m-%Y')
             hora = datetime.now().strftime('%H:%M:%S')
@@ -55,28 +64,45 @@ class PriceChecker:
             nome_produto = nome_elemento.get_text(strip=True) if nome_elemento else "Nome indisponível"
             data, hora = extrair_data()
 
-            return {
-                'nome': nome_produto,
-                'preco': preco,
-                'data': data,
-                'hora': hora
-            }
+            # return {
+            #     'nome': nome_produto,
+            #     'preco': preco,
+            #     'data': data,
+            #     'hora': hora
+            # }
+
+            resultado = f"Nome: {nome_produto}\nPreço: {preco}\nData: {data} Hora: {hora}"
+            return resultado
+    
         except Exception as e:
-            return {'erro': str(e)}
+            return {"Erro ao extrair dados:": str(e)}
         
     def locale(self):
         tipos_arquivos = [("Arquivos CSV e Excel", "*.csv;*.xlsx")]
-        tk.Tk().withdraw()
         filename = askopenfilename(title="Selecionar Arquivo",filetypes=tipos_arquivos)
-        return filename
+        print(filename)    
+        if filename:
+            self.caminho_arquivo.set(filename)
 
-    # url = "https://www.magazineluiza.com.br/kit-composto-lacteo-milnutri-profutura-original-800g-2-unidades/p/229864500/me/cptl/"
+    def analisar_preco(self):
+        # Obter o URL do produto (por enquanto, vamos usar o URL fixo)
+        url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
+
+        # Extrair os dados
+        resultado = self.extrair_dados_magalu(url)
+        print(resultado)
+
+        # Atualizar o rótulo com o resultado
+        self.result_label.config(text=resultado)
+
+            
+
+    # TESTES
     url = "https://www.magazineluiza.com.br/bebida-lactea-uht-com-15g-de-proteinas-yopro-morango-sem-lactose-zero-acucar-250ml/p/234133400/me/bebp/"
 
-    dados = extrair_dados_magalu(url)
-    print(dados)
+    # caminho = r".\test\Links Magalu e Qualidoc.xlsx"
+    # coluna_desejada = "LINK"
+    # TESTES
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = PriceChecker(root)
-    root.mainloop()
+    app = PriceChecker()
