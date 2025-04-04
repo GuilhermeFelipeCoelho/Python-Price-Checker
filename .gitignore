@@ -138,6 +138,7 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+produtos.db
 
 # Rope project settings
 .ropeproject
