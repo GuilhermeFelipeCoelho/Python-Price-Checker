@@ -71,7 +71,7 @@ def adicionar_produto(conexao, cursor, nome, preco):
     print(f"Produto inserido com ID: {id_ultimo_produto}")
     
 def exibir_produtos(cursor):
-    cursor.execute("SELECT nome, preco, variacao, data_hora FROM produtos")
+    cursor.execute("SELECT nome, preco, variacao_preco, data_hora FROM produtos")
     produtos = cursor.fetchall()
     for produto in produtos:
         print(
